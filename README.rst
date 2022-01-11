@@ -9,9 +9,9 @@ Pycork Pre-Compiled Python Library for the Cork Library
  :target: https://pepy.tech/project/pycork
 
 
-Pycork is a Python library offering the functionality of the Cork boolean CSG library in a compiler friendly form suitable across all platforms. The library includes the dependencies for the Multi-Precision Integer and Rationals (MPIR) used by the Cork libary to provide a simpler route for compiling the package individually and also python bindings. Refactoring has been done to tidy up the existing code base that can be built using CMake and on Windows.
+Pycork is a Python library offering the functionality of the Cork boolean CSG library in a compiler friendly form suitable across all platforms. The library includes the dependencies for the Multi-Precision Integer and Rationals (MPIR) 3.0 built-in used by the Cork libary to provide a simpler route for compiling the package for individuals and in addition, generating python bindings for use in other projects. Refactoring has been done to tidy up the existing codebase that can be built across multiple platforms, in particular Windows, using CMake.
 
-The python bindings are simple and offer access to  the core functionality offered by the Cork library. Additionally, it removes the awkard requirement to generate .off files used in the command-line option for Cork library. This is simply done by passing the triangular meshes (vertices, tri faces) as numpy arrays as arugments for each function.
+The python bindings are simple and offer access to the core functionality offered by the Cork library to perform boolean operations on watertight meshes. Additionally, it removes the awkard step of generatig .off files that are used in the command-line interface of the Cork library. The user may pass triangular meshes (vertices, tri faces indices) as numpy arrays to each function.
 
 For further information, see the latest `release notes <https://github.com/drlukeparry/pycork/blob/master/CHANGELOG.md>`_.
 
@@ -31,11 +31,11 @@ Installation of pycork can then be performed using pre-built python packages usi
 
     pip install pycork
 
-Alternatively, pycork may be compiled directly from source. Currently the prerequisites are the a compliant c++ build environment, include CMake build system. Currently tested on Windows 10, using VS19.0
+Alternatively, pycork may be compiled directly from source. Currently the prerequisites are the a compliant c++ build environment, include CMake build system. Currently tested on Windows 10, using VS2019.
 
 .. code:: bash
 
-    git clone https://github.com/drlukeparry/pyslm.git && cd ./pyslm
+    git clone https://github.com/drlukeparry/pycork.git && cd ./pycork
     git submodule update --init --recursive
 
     python setup.py install
@@ -43,7 +43,7 @@ Alternatively, pycork may be compiled directly from source. Currently the prereq
 Usage
 ******
 
-The Cork CSG library is simple in nature and there are few functions that require any extra explicit description.
+The Cork CSG library, by design, has a simple interface for is functionality. Further detailed description of the function is therefore not necessary.
 
 .. code:: python
 
