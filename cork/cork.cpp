@@ -119,9 +119,6 @@ void eigenToCorkMesh(const Eigen::Matrix<double, Eigen::Dynamic, 3> &verts,
 
     uint64_t max_ref_idx = tris.maxCoeff();
 
-    std::cout << "max ref idx" << max_ref_idx;
-    std::cout << "shape of tris: " << tris.rows() << "x" << tris.cols();
-
     if(max_ref_idx > verts.rows()) {
 
         CORK_ERROR("mesh input to Cork routine has an out of range reference "

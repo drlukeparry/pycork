@@ -9,16 +9,16 @@ Pycork Pre-Compiled Python Library for the Cork Library
  :target: https://pepy.tech/project/pycork
 
 
-Pycork is a Python library offering the functionality of the Cork boolean CSG library in a compiler friendly form suitable across all platforms. The library includes the dependencies for the Multi-Precision Integer and Rationals (MPIR) 3.0 built-in used by the Cork libary to provide a simpler route for compiling the package for individuals and in addition, generating python bindings for use in other projects. Refactoring has been done to tidy up the existing codebase that can be built across multiple platforms, in particular Windows, using CMake.
+Pycork is a Python library offering the functionality of the Cork boolean CSG library in a compiler friendly form suitable across all platforms. The library includes the dependencies for the Multi-Precision Integer and Rationals (MPIR) 3.0 built-in used by the Cork libary. The package aims to provide a simpler route for compiling the package for individuals and in addition, generating python bindings for use across other projects. Refactoring has been authored to tidy up the existing codebase so that it can be built across multiple platforms, in particular Windows, using the CMake build-system. At this stage, no further optimisations or improvements will be made specifically to the cork library, inclusive of its algorithms.
 
-The python bindings are simple and offer access to the core functionality offered by the Cork library to perform boolean operations on watertight meshes. Additionally, it removes the awkard step of generatig .off files that are used in the command-line interface of the Cork library. The user may pass triangular meshes (vertices, tri faces indices) as numpy arrays to each function.
+The python bindings are simple and offer access to the core functionality offered by the Cork library to perform boolean operations on watertight meshes. Additionally, it removes the awkward step of generatig .off files that are used in the command-line interface of the Cork library. The user may pass triangular meshes (vertices, tri-faces indices) as numpy arrays to each function.
 
 For further information, see the latest `release notes <https://github.com/drlukeparry/pycork/blob/master/CHANGELOG.md>`_.
 
 Installation
 *************
 
-Installation is currently supported on Windows. No special requiremets are necessary for using pycork, except having the numpy library available. It is recommends to additionally the `trimesh <https://github.com/mikedh/trimesh>`_ library to provide an interface to processing meshes as input for pycork.
+Installation is currently supported on Windows. No special requiremnets are necessary for using pycork, except having the numpy library available. It is recommend to also install the `trimesh <https://github.com/mikedh/trimesh>`_ library to provide an interface to processing meshes as input for pycork.
 
 .. code:: bash
 
@@ -31,7 +31,7 @@ Installation of pycork can then be performed using pre-built python packages usi
 
     pip install pycork
 
-Alternatively, pycork may be compiled directly from source. Currently the prerequisites are the a compliant c++ build environment, include CMake build system. Currently tested on Windows 10, using VS2019.
+Alternatively, pycork may be compiled directly from source. Currently the prerequisites are the a compliant c++ build environment, include CMake build system. Currently the package has been tested on Windows 10, using VS2019.
 
 .. code:: bash
 
