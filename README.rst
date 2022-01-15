@@ -1,4 +1,4 @@
-Pycork Pre-Compiled Python Library for the Cork Library
+Pycork - Cork Python Library for Boolean CSG Operations on Meshes
 =============================================================================
 
 .. image:: https://github.com/drlukeparry/pycork/actions/workflows/pythonpublish.yml/badge.svg
