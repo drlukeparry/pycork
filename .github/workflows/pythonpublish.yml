@@ -32,7 +32,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update -qq -y
-        sudo apt-get install -qq -y libglu1-mesa build-essential mpir yasm
+        sudo apt-get install -qq -y libglu1-mesa build-essential libgmp-dev  yasm
     - name: Install Brew On Mac
       if: matrix.os == 'macos-latest'
       run: |
