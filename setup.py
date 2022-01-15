@@ -102,7 +102,7 @@ setup(
         'Topic :: Scientific/Engineering'],
     license="",
     project_urls = {
-    'Documentation': 'https://pycork.readthedocs.io/en/latest/',
+    'Documentation': 'https://github.com/drylukeparry/pycork',
     'Source': 'https://github.com/drylukeparry/pycork',
     'Tracker': 'https://github.com/drlukeparry/pycork/issues'
     }

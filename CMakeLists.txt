@@ -20,7 +20,10 @@ include (GenerateExportHeader)
 add_definitions("-DPROJECT_VERSION=\"${PROJECT_VERSION}\"" )
 
 #add_definitions("-DPROJECT_VERSION=\"${PROJECT_VERSION}\"" )
-add_definitions("-DNOMINMAX -DFMT_HEADER_ONLY  -DCORK_DEBUG -DANSI_DECLARATORS -DCPU86 -D_USE_MATH_DEFINES -DTRILIBRARY -DNO_TIMER -DTRIANGLE_INTEL64 -DREDUCED -D _CRT_SECURE_NO_WARNINGS -DCDT_ONLY")
+add_definitions("-DNOMINMAX -DFMT_HEADER_ONLY  -DCORK_DEBUG -DANSI_DECLARATORS -D_USE_MATH_DEFINES -DTRILIBRARY
+                 -DNO_TIMER -DTRIANGLE_INTEL64 -DREDUCED -D _CRT_SECURE_NO_WARNINGS -DCDT_ONLY")
+
+# removed -DCPU86
 
 option(BUILD_PYTHON "Builds a python extension" ON)
 
@@ -33,13 +36,19 @@ if(WIN32)
     IF(MSVC)
 
         set(COMMON_LANGUAGE_RUNTIME "")
-        set(EIGEN3_INCLUDE_DIR External/eigen)
+        set(EIGEN3_INCLUDE_DIR external/eigen)
 
         add_compile_options(
             "/GS-"
             "/INCREMENTAL:NO")
 
         set(GMP_INCLUDE_DIR ${PROJECT_BINARY_DIR}/mpir)
+
+        if(BUILD_PYTHON)
+            set(GMP_LIBRARIES mpir)
+        else(BUILD_PYTHON)
+            set(GMP_LIBRARIES mpir_static)
+        endif(BUILD_PYTHON)
 
     endif(MSVC)
 
@@ -52,9 +61,10 @@ else(WIN32)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
+    set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 
     # Find Required packages
-    find_package(Eigen3 3.4 REQUIRED)
+    find_package(Eigen3 3.3 REQUIRED)
     find_package(GMP REQUIRED)
 
 endif(WIN32)
@@ -65,12 +75,12 @@ endif(WIN32)
 # https://github.com/wjakob/filesystem
 
 set(CPP_FILESYSTEM
-    External/filesystem
+    external/filesystem
 )
 
 ## A replacement library for std::Format
 set(CPP_FMT
-    External/fmt/include
+    external/fmt/include
 )
 
 #add_definitions("-DFMT_HEADER_ONLY=1 -DNO_TIMER -DANSI_DECLARATORS -DREDUCED -DTRIANGLE_INTEL64 -CDT_ONLY -DCPU86 -DTRILIBRARY -DANSI_DECLARATORS -D_USE_MATH_DEFINES - -")
@@ -84,7 +94,7 @@ link_directories(
 if(BUILD_PYTHON)
     message(STATUS "Building PyCork Python Module")
 
-    add_subdirectory(External/pybind11)
+    add_subdirectory(external/pybind11)
 
     set(PYBIND11_CPP_STANDARD /std:c++11)
 
@@ -171,10 +181,10 @@ if(BUILD_PYTHON)
 
     message(STATUS "Building PyCork Python-  Static Library")
 
-        add_definitions("-DCORK_BUILT_AS_STATIC")
+    add_definitions("-DCORK_BUILT_AS_STATIC")
     add_library(cork_static STATIC ${LIBCORK_SRCS})
 
-    target_link_libraries(cork_static PRIVATE mpir_static)
+    target_link_libraries(cork_static PRIVATE ${PYCORK_LIBS})
     GENERATE_EXPORT_HEADER(cork_static
                  BASE_NAME CORK
                  EXPORT_MACRO_NAME CORK_EXPORT
@@ -186,7 +196,7 @@ else(BUILD_PYTHON)
     message(STATUS "Building Cork Module Standalone - Dynamic Library")
 
     add_library(cork SHARED ${LIBCORK_SRCS})
-    target_link_libraries(cork mpir)
+    target_link_libraries(cork ${PYCORK_LIBS})
 
     GENERATE_EXPORT_HEADER(cork
                  BASE_NAME CORK
@@ -215,13 +225,13 @@ if(BUILD_PYTHON)
 
     #add_library(example MODULE main.cpp)
 
-    target_link_libraries(pycork PRIVATE pybind11::module cork_static mpir_static)
+    target_link_libraries(pycork PRIVATE pybind11::module cork_static ${PYCORK_LIBS})
     set_target_properties(pycork PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
                                           SUFFIX "${PYTHON_MODULE_EXTENSION}")
 
 
      add_executable(main ${App_SRCS})
-     target_link_libraries(main cork_static mpir_static)
+     target_link_libraries(main cork_static ${PYCORK_LIBS})
 
     install(TARGETS pycork DESTINATION lib/pycork)
 
@@ -230,21 +240,11 @@ else(BUILD_PYTHON)
 
 
     add_executable(main ${App_SRCS})
-    target_link_libraries(main cork mpir)
+    target_link_libraries(main cork ${PYCORK_LIBS})
 
     #install(TARGETS mpir DESTINATION )
 
-
 endif(BUILD_PYTHON)
-
-#file(GLOB A3200_DLL_LIBS
-#  "/External/A3200/Bin64/*.dll"
-#)
-
-#file(COPY ${A3200_DLL_LIBS}
-#     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-
 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/CORK_Export.h
