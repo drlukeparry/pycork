@@ -1,6 +1,6 @@
 #include <string>
 
-#include <eigen/Eigen>
+#include <Eigen/Eigen>
 
 #include <cork/rawmesh/rawMesh.h>
 #include <cork/mesh/mesh.h>
