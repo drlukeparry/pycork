@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(pycork VERSION 0.1.0)
+project(pycork VERSION 0.1.1)
 
 # Set c++ to use cx11 as a requirement
 set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ version selection")
@@ -45,9 +45,9 @@ if(WIN32)
         set(GMP_INCLUDE_DIR ${PROJECT_BINARY_DIR}/mpir)
 
         if(BUILD_PYTHON)
-            set(GMP_LIBRARIES mpir)
-        else(BUILD_PYTHON)
             set(GMP_LIBRARIES mpir_static)
+        else(BUILD_PYTHON)
+            set(GMP_LIBRARIES mpir)
         endif(BUILD_PYTHON)
 
     endif(MSVC)
