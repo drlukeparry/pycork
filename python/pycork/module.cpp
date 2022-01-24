@@ -141,6 +141,40 @@ MeshTuple resolveIntersection(const EigenVecX3d &vertsA,
 }
 
 
+
+} // end of namespace
+
+
+
+PYBIND11_MODULE(pycork, m) {
+
+    m.doc() = R"pbdoc(
+        Pycork Module
+        -----------------------
+        .. currentmodule:: pycork
+        .. autosummary::
+           :toctree: _generate
+
+    )pbdoc";
+
+    m.def("isSolid", &pycork::isSolid, "Determines if the mesh is manifold",
+                     py::arg("vertices"), py::arg("tris"))
+     .def("union", &pycork::booleanUnion, "Computes boolean Union between two meshes",
+                    py::arg("vertsA"), py::arg("trisA"),
+                    py::arg("vertsB"), py::arg("trisB"))
+     .def("difference", &pycork::booleanDifference, "Computes boolean differnece between two meshes",
+                   py::arg("vertsA"), py::arg("trisA"),
+                   py::arg("vertsB"), py::arg("trisB"))
+     .def("intersection", &pycork::booleanIntersection, "Computes boolean intersection between two meshes",
+                   py::arg("vertsA"), py::arg("trisA"),
+                   py::arg("vertsB"), py::arg("trisB"))
+     .def("intersection", &pycork::booleanIntersection, "Computes boolean xor between two meshes",
+                           py::arg("vertsA"), py::arg("trisA"),
+                           py::arg("vertsB"), py::arg("trisB"))
+     .def("resolveIntersection", &pycork::resolveIntersection, "Computes the intersection between two meshes",
+                                  py::arg("vertsA"), py::arg("trisA"));
+
+
 #ifdef PROJECT_VERSION
     m.attr("__version__") = "PROJECT_VERSION";
 #else
