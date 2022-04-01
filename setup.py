@@ -76,7 +76,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='pycork',
-    version='0.1.2',
+    version='0.1.3',
     author='Luke Parry',
     author_email='dev@lukeparry.uk',
     url='https://github.com/drlukeparry/pycork',
