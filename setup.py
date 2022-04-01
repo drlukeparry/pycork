@@ -76,7 +76,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='pycork',
-    version='0.1.0',
+    version='0.1.3',
     author='Luke Parry',
     author_email='dev@lukeparry.uk',
     url='https://github.com/drlukeparry/pycork',
@@ -98,6 +98,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Natural Language :: English',
         'Topic :: Scientific/Engineering'],
     license="",
