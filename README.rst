@@ -39,6 +39,17 @@ Alternatively, pycork may be compiled directly from source. Currently the prereq
     git submodule update --init --recursive
 
     python setup.py install
+    
+MacOS
+********************
+
+To install on MacOS you need to install GMP and Eigen using brew
+
+.. code:: bash
+
+    brew install eigen gmp
+    
+Then you should be able to compile pycork from source as shown above
 
 Usage
 ******
